@@ -19,6 +19,7 @@ public class TestMain {
         for (int i=0;i<10;i++){
         	sentenceBuilder.createRandomSentence();
         }
+        LinkIntepreter.writeToFile(sentenceBuilder.nouns_nouns, "schmarf.txt");
     }
 
 	
