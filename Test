@@ -13,8 +13,26 @@ def getUniqueItems(iterable):
 a = ["asd","def","ase","dfg","asd","def","dfg"]
 print getUniqueItems(a)
 
+
 // create new matrix
+from numpy import matrix
 import numpy as np
 d = np.zeros((2,3))
 d[1][2] = 1
+print d
 
+//transform into string and get rid of useless characters
+a = str(d)[1:-1]
+a = a.replace("["," ")
+a = a.replace("]"," ")
+a = a.replace("."," ")
+
+//create a file a store the matrices in the file
+file = open("newfile.txt", "w")
+# file.write("hello world in the new file\n")
+# file.write("and another line\n")
+file.write(a)
+file.close()
+
+file = open('newfile.txt', 'r')
+print file.read()
