@@ -1,3 +1,6 @@
+
+
+// delete same string in a list
 def getUniqueItems(iterable):
     seen = set()
     result = []
@@ -9,3 +12,8 @@ def getUniqueItems(iterable):
 
 a = ["asd","def","ase","dfg","asd","def","dfg"]
 print getUniqueItems(a)
+
+// create new matrix
+import numpy as np
+d = np.zeros((2,3))
+
