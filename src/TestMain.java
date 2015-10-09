@@ -1,35 +1,25 @@
-   import simplenlg.framework.*;
-    import simplenlg.lexicon.*;
-    import simplenlg.realiser.english.*;
-    import simplenlg.phrasespec.*;
-    import simplenlg.features.*;
+   import java.util.Random;
+
+import simplenlg.framework.*;
+import simplenlg.lexicon.*;
+import simplenlg.realiser.english.*;
+import simplenlg.phrasespec.*;
+import simplenlg.features.*;
     
 public class TestMain {
+	
+	
 
 
 	public static void main(String [] args){
-		Lexicon lexicon = Lexicon.getDefaultLexicon();                         // default simplenlg lexicon
-        NLGFactory nlgFactory = new NLGFactory(lexicon);             // factory based on lexicon
-        Realiser realiser = new Realiser(lexicon);
-        
-        SPhraseSpec p = nlgFactory.createClause();
-        NPPhraseSpec subject = nlgFactory.createNounPhrase("measure");
-        subject.setFeature(Feature.NUMBER, NumberAgreement.PLURAL);
-        subject.addModifier("protective");
-        p.setSubject(subject);
-        
-        p.setVerb("prevent");
-        
-        NPPhraseSpec object = nlgFactory.createNounPhrase("disaster");
-        object.setFeature(Feature.NUMBER, NumberAgreement.PLURAL);
-        object.addModifier("costly");
-        
-        p.setObject(object);
-        p.setFeature(Feature.TENSE, Tense.FUTURE);
-        
-        String output = realiser.realiseSentence(p);
-        System.out.println(output);
-        
-	}
+		TestMain m = new TestMain();
+       // m.osv("cat","mouse","finds");
+       
+        SentenceBuilder sentenceBuilder = new SentenceBuilder();
+        for (int i=0;i<10;i++){
+        	sentenceBuilder.createRandomSentence();
+        }
+    }
 
+	
 }
