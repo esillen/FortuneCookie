@@ -243,9 +243,9 @@ print(PersPronouns)
 
 
 NN = np.zeros((len(nouns),len(nouns)))
-NV = np.zeros((len(nouns),len(verbs)))
-NAdj = np.zeros((len(nouns),len(adjective)))
-NP = np.zeros((len(nouns),len(PersPronouns)))
+NV = np.zeros((len(verbs),len(nouns)))
+NAdj = np.zeros((len(adjective),len(nouns)))
+NP = np.zeros((len(PersPronouns),len(nouns)))
 
 numOfObjecs = 0
 for sentence in final_list:
@@ -261,39 +261,39 @@ for nounNum in range(len(nouns)):
             if(len(verbsInSentence)!=0):
                 for word in verbsInSentence:
                     pos = findPosOfWordInArray(word,verbs)
-                    NV[nounNum][pos] = NV[nounNum][pos]+1
+                    NV[pos][nounNum] = NV[pos][nounNum]+1
             nounsInSentence = checkForOtherWordtypes("NN",final_list[sentenceNum])
             if(len(nounsInSentence)!=0):
                 for word in nounsInSentence:
-                        pos = findPosOfWordInArray(word,nouns)
-                        NN[nounNum][pos] = NN[nounNum][pos]+1
-            AdjInSentence = checkForOtherWordtypes("RB",final_list[sentenceNum])
+                    pos = findPosOfWordInArray(word,nouns)
+                    NN[pos][nounNum] = NN[pos][nounNum]+1
+            AdjInSentence = checkForOtherWordtypes("JJ",final_list[sentenceNum])
             if(len(AdjInSentence)!=0):
                 for word in AdjInSentence:
                     pos = findPosOfWordInArray(word,adjective)
-                    NV[nounNum][pos] = NV[nounNum][pos]+1
+                    NAdj[pos][nounNum] = NAdj[pos][nounNum]+1
             PersProInSentence = checkForOtherWordtypes("PRP",final_list[sentenceNum])
             if(len(PersProInSentence)!=0):
                 for word in PersProInSentence:
                     pos = findPosOfWordInArray(word,PersPronouns)
-                    NP[nounNum][pos] = NP[nounNum][pos] + 1
+                    NP[pos][nounNum] = NP[pos][nounNum] + 1
             PersProInSentence = checkForOtherWordtypes("PRP$",final_list[sentenceNum])
             if(len(PersProInSentence)!=0):
                 for word in PersProInSentence:
                     word = pos_to_pers(word)
                     pos = findPosOfWordInArray(word,PersPronouns)
-                    NP[nounNum][pos] = NP[nounNum][pos] + 1
+                    NP[pos][nounNum] = NP[pos][nounNum] + 1
 
-VAdv = np.zeros((len(verbs),len(adverb)))
+VAdv = np.zeros((len(adverb),len(verbs)))
 for verbNum in range(len(verbs)):
     for sentenceNum in range(len(final_list)):
         posOfWord = checkIfInSentence(nouns[nounNum],final_list[sentenceNum])
         if(posOfWord != -1):
-            adVerbInSentence = checkForOtherWordtypes("VB",final_list[sentenceNum])
+            adVerbInSentence = checkForOtherWordtypes("RB",final_list[sentenceNum])
             if(len(adVerbInSentence)!=0):
                 for word in adVerbInSentence:
                     pos = findPosOfWordInArray(word,adverb)
-                    VAdv[verbNum][pos] = VAdv[verbNum][pos]+1
+                    VAdv[pos][verbNum] = VAdv[pos][verbNum]+1
 
 
 
@@ -303,9 +303,9 @@ NAdj = normalizeMatrix(NAdj)
 NP = normalizeMatrix(NP)
 VAdv = normalizeMatrix(VAdv)
 
-writeInFile(nouns,verbs,NV,"NV.txt")
-writeInFile(nouns,nouns,NN,"NN.txt")
-writeInFile(nouns,adjective,NAdj,"NAdj.txt")
-writeInFile(nouns,PersPronouns,NP,"NP.txt")
-writeInFile(verbs,adverb,VAdv,"VAdv.txt")
+writeInFile(nouns,verbs,NV,"nouns_verbs.txt")
+writeInFile(nouns,nouns,NN,"nouns_nouns.txt")
+writeInFile(nouns,adjective,NAdj,"nouns_adjectives.txt")
+writeInFile(nouns,PersPronouns,NP,"nouns_pronouns.txt")
+writeInFile(verbs,adverb,VAdv,"verbs_adverbs.txt")
 
