@@ -33,9 +33,8 @@ public class WordMatrix2d {
 				break;
 			}
 		}
-		
 		if (wordAt == -1){
-			return "wordNotFound";
+			return "#couldn't find " + startWord + " #";
 		}
 		Random randomGenerator = new Random();
 		double randFloat = randomGenerator.nextDouble();
@@ -49,6 +48,7 @@ public class WordMatrix2d {
 		return "arrayError";
 	}
 	
+	//This code also perturb the corresponding row
 	public void trainWordCouple(String w1,String w2){
 		int xpos = -1,ypos = -1;
 		for(int i=0;i<words1.length;i++){
@@ -68,17 +68,19 @@ public class WordMatrix2d {
 			return;
 		}
 		matrix[ypos][xpos] += 1.0/(double)matrix[0].length;
-		perturbate();
+		perturbate(ypos);
 		normalize();
 		
 	}
 	
-	private void perturbate() {
-		for(int i=0;i<matrix.length;i++){
-			for(int j=0;j<matrix[0].length;j++){
-				matrix[i][j]+=randgen.nextGaussian()*0.1/matrix[0].length;
+	private void perturbate(int row) {
+		for(int i=0;i<matrix[row].length;i++){
+			matrix[row][i]+=randgen.nextGaussian()*0.1/matrix[row].length;
+			if (matrix[row][i] < 0){
+				matrix[row][i] = 0;
 			}
 		}
+		
 	}
 
 	public void normalize(){

@@ -6,13 +6,12 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.Scanner;
-
 
 public class LinkIntepreter {
 	
-	public static WordMatrix2d readFile(String filename){
-		
+	public static WordMatrix2d readMatrixFile(String filename){
 		Scanner in = null;
 		try {
 			in = new Scanner(new FileReader(System.getProperty("user.dir")+"/"+filename));
@@ -35,16 +34,102 @@ public class LinkIntepreter {
 				j+=1;
 			}
 		}
+		in.close();
 		return new WordMatrix2d(parts1,parts2,matrix);
 	}
 	
+	public static FeatureSet readFeatureFile(String filename){
+		FeatureSet featureSet = new FeatureSet();
+		Scanner in = null;
+		try {
+			in = new Scanner(new FileReader(System.getProperty("user.dir")+"/"+filename));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		in.useDelimiter("\n");
+		//Tense
+		String line = in.next();
+		String[] items = line.split(" ");
+		featureSet.tenseProb[0] = Double.parseDouble(items[1]);
+		featureSet.tenseProb[1] = Double.parseDouble(items[2]);
+		featureSet.tenseProb[2] = Double.parseDouble(items[3]);
+		
+		//has_object
+		line = in.next();
+		items = line.split(" ");
+		featureSet.has_objectProb[0] = Double.parseDouble(items[1]);
+		featureSet.has_objectProb[1] = Double.parseDouble(items[2]);
+		
+		//has_adverb
+		line = in.next();
+		items = line.split(" ");
+		featureSet.has_adverbProb[0] = Double.parseDouble(items[1]);
+		featureSet.has_adverbProb[1] = Double.parseDouble(items[2]);
+		
+		//object_has_adjective
+		line = in.next();
+		items = line.split(" ");
+		featureSet.object_has_adjectiveProb[0] = Double.parseDouble(items[1]);
+		featureSet.object_has_adjectiveProb[1] = Double.parseDouble(items[2]);
+		
+		//object_has_adjective
+		line = in.next();
+		items = line.split(" ");
+		featureSet.object_is_pluralProb[0] = Double.parseDouble(items[1]);
+		featureSet.object_is_pluralProb[1] = Double.parseDouble(items[2]);
+		
+		//subject_has_adjective
+		line = in.next();
+		items = line.split(" ");
+		featureSet.subject_has_adjectiveProb[0] = Double.parseDouble(items[1]);
+		featureSet.subject_has_adjectiveProb[1] = Double.parseDouble(items[2]);
+		
+		//subject_has_adjective
+		line = in.next();
+		items = line.split(" ");
+		featureSet.subject_is_pronounProb[0] = Double.parseDouble(items[1]);
+		featureSet.subject_is_pronounProb[1] = Double.parseDouble(items[2]);
+		
+		//subject_has_adjective
+		line = in.next();
+		items = line.split(" ");
+		featureSet.subject_pronoun_is_possessiveProb[0] = Double.parseDouble(items[1]);
+		featureSet.subject_pronoun_is_possessiveProb[1] = Double.parseDouble(items[2]);
+		
+		//subject_has_adjective
+		line = in.next();
+		items = line.split(" ");
+		featureSet.subject_is_definiteProb[0] = Double.parseDouble(items[1]);
+		featureSet.subject_is_definiteProb[1] = Double.parseDouble(items[2]);
+				
+		//subject_has_adjective
+		line = in.next();
+		items = line.split(" ");
+		featureSet.object_is_pronounProb[0] = Double.parseDouble(items[1]);
+		featureSet.object_is_pronounProb[1] = Double.parseDouble(items[2]);
+		
+		//subject_has_adjective
+		line = in.next();
+		items = line.split(" ");
+		featureSet.object_pronoun_is_possessiveProb[0] = Double.parseDouble(items[1]);
+		featureSet.object_pronoun_is_possessiveProb[1] = Double.parseDouble(items[2]);
+		
+		//subject_has_adjective
+		line = in.next();
+		items = line.split(" ");
+		featureSet.object_is_definiteProb[0] = Double.parseDouble(items[1]);
+		featureSet.object_is_definiteProb[1] = Double.parseDouble(items[2]);
+
+		in.close();
+		
+		return featureSet;
+	}
 	
 	public static void writeToFile(WordMatrix2d wm,String filename){
 		BufferedWriter writer = null;
 		try {
 			writer = new BufferedWriter(new FileWriter(System.getProperty("user.dir")+"/"+filename));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	    
@@ -64,7 +149,6 @@ public class LinkIntepreter {
 		str2.append(wm.words2[wm.words2.length-1]);
 		str2.append("\n");
 		
-		
 		StringBuilder str3 = new StringBuilder();
 		
 		for (int i=0;i<wm.matrix.length;i++){
@@ -82,10 +166,7 @@ public class LinkIntepreter {
 			writer.write(str3.toString());
 			writer.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		
-		
+		}		
 	}
 }
