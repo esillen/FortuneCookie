@@ -1,0 +1,134 @@
+import nltk
+from nltk.corpus import wordnet as wn
+from numpy import matrix
+import numpy as np
+def getUniqueItems(iterable):
+    seen = set()
+    result = []
+    for item in iterable:
+        if item not in seen:
+            seen.add(item)
+            result.append(item)
+    return result
+
+def checkIfInSentence(word,sentence):
+    for i in range(len(sentence)):
+        if(word in sentence[i][0]):
+            return i
+    return -1
+
+def checkForOtherWordtypes(wordtype,sentence):
+    wordsInSentence = []
+    for i in range(len(sentence)):
+        if(wordtype == sentence[i][1]):
+            wordsInSentence.append(sentence[i][0])
+    return wordsInSentence
+
+def findPosOfWordInArray(word,array):
+    for pos in range(len(array)):
+        if(array[pos] == word):
+            return pos
+
+def normalizeMatrix(mat):
+    rowSums = mat.sum(axis=1)
+    #print(mat)
+    #print(rowSums)
+    [R,C] = mat.shape;
+    print(C)
+    for colNum in range(C):
+        for rowNum in range(R):
+            if(rowSums[rowNum] != 0):
+                mat[rowNum][colNum] = mat[rowNum][colNum]/rowSums[rowNum]
+    return mat
+
+def writeInFile(arrayA,arrayB,mat,fileName):
+
+    a = str(mat)[1:-1]
+    a = a.replace("["," ")
+    a = a.replace("]"," ")
+
+
+
+    file = open(fileName, "w")
+    file.write(' '.join(arrayA))
+    file.write('\n')
+    file.write(' '.join(arrayB))
+    file.write('\n')
+    file.write(a)
+    file.close()
+
+
+
+sentences = [
+    "A pleasant surprise is in store for you.",
+    """A man in love is incomplete until he has married. Then he's finished.""",
+    "A pleasant surprise is in store for you.",
+    "A pleasant surprise is waiting for you.",
+    "A stable house depends on solid foundations.",
+    "A sure cure for seasickness is to sit under a tree.",
+    "A woman's mind is cleaner than a man's. She changes it more often.",
+    "Accomplishing the impossible means only that the boss will add it to your regular duties.",
+    "Act in hast, repent in leisure.",
+    "All men are mortal. Socrates was mortal. Therefore, all men are Socrates.",
+    "All the world's a stage and most of us are desperately unrehearsed.",
+    "All will go well with your new project.",
+    "All your hard work will soon pay off.",
+    "All your hopes, dreams and fears are the beginning of the future.",
+    "Always finish what you started.",
+    "Always laugh at yourself before others do.",
+    "Always try to make other people happy, even if you have to leave them alone to do it.",
+    "An agreeable romance might begin to take on the appearance.",
+    "An empty stomach is not a good political advisor.",
+    "An important person will offer you support.",
+    "An investment in the community will reap high returns of good will.",
+    "Avert misunderstanding by calm, poise, and balance. Be stingy with your anger.",
+    "Be careful of your thoughts, they may become words at any moment.",
+    "Be careful or you could fall for some tricks today.",
+    "Be direct, usually one can accomplish more that way."
+]
+
+
+blabla = []
+for sentenceNum in range(len(sentences)):
+    tokens = nltk.word_tokenize(sentences[sentenceNum])
+    tagged = nltk.pos_tag(tokens)
+    blabla.append(tagged)
+
+nouns =[]
+verbs = []
+print(blabla)
+
+for sentNum in range(len(blabla)):
+    for wordNum in range(len(blabla[sentNum])):
+        taggedWord = blabla[sentNum][wordNum]
+        if(taggedWord[1] == "NN"):
+            nouns.append(taggedWord[0])
+        elif(taggedWord[1]=="VB"):
+            verbs.append(taggedWord[0])
+
+NN = np.zeros((len(nouns),len(nouns)))
+NV = np.zeros((len(nouns),len(verbs)))
+
+nouns = getUniqueItems(nouns)
+verbs = getUniqueItems(verbs)
+
+for nounNum in range(len(nouns)):
+    for sentenceNum in range(len(blabla)):
+        posOfWord = checkIfInSentence(nouns[nounNum],blabla[sentenceNum])
+        if(posOfWord != -1):
+            verbsInSentence = checkForOtherWordtypes("VB",blabla[sentenceNum])
+            if(len(verbsInSentence)!=0):
+                for word in verbsInSentence:
+                    pos = findPosOfWordInArray(word,verbs)
+                    NV[nounNum][pos] = NV[nounNum][pos]+1
+            nounsInSentence = checkForOtherWordtypes("NN",blabla[sentenceNum])
+            if(len(nounsInSentence)!=0):
+                for word in nounsInSentence:
+                    pos = findPosOfWordInArray(word,nouns)
+                    NN[nounNum][pos] = NN[nounNum][pos]+1
+
+
+NV = normalizeMatrix(NV)
+writeInFile(nouns,verbs,NV,"NV.txt")
+writeInFile(nouns,nouns,NN,"NN.txt")
+print(NV)
