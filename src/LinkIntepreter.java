@@ -125,7 +125,7 @@ public class LinkIntepreter {
 		return featureSet;
 	}
 	
-	public static void writeToFile(WordMatrix2d wm,String filename){
+	public static void writeMatrixToFile(WordMatrix2d wm,String filename){
 		BufferedWriter writer = null;
 		try {
 			writer = new BufferedWriter(new FileWriter(System.getProperty("user.dir")+"/"+filename));
@@ -159,7 +159,6 @@ public class LinkIntepreter {
 			str3.append(wm.matrix[i][wm.matrix[0].length-1]);
 			str3.append("\n");
 		}
-		System.out.println(str3.toString());
 		try {
 			writer.write(str1.toString());
 			writer.write(str2.toString());
@@ -169,4 +168,63 @@ public class LinkIntepreter {
 			e.printStackTrace();
 		}		
 	}
+	
+	public static void writeFeaturesToFile(FeatureSet fs,String filename){
+		BufferedWriter writer = null;
+		try {
+			writer = new BufferedWriter(new FileWriter(System.getProperty("user.dir")+"/"+filename));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		StringBuilder str = new StringBuilder();
+		str.append("tense ");
+		str.append(Arrays.toString(fs.tenseProb));
+		str.append("\n");
+		str.append("has_object ");
+		str.append(Arrays.toString(fs.has_objectProb));
+		str.append("\n");
+		str.append("has_adverb ");
+		str.append(Arrays.toString(fs.tenseProb));
+		str.append("\n");
+		str.append("object_has_adjective ");
+		str.append(Arrays.toString(fs.tenseProb));
+		str.append("\n");
+		str.append("object_has_plural ");
+		str.append(Arrays.toString(fs.tenseProb));
+		str.append("\n");
+		str.append("subject_has_adjective ");
+		str.append(Arrays.toString(fs.tenseProb));
+		str.append("\n");
+		str.append("subject_is_pronoun ");
+		str.append(Arrays.toString(fs.tenseProb));
+		str.append("\n");
+		str.append("subject_pronoun_is_possessive ");
+		str.append(Arrays.toString(fs.tenseProb));
+		str.append("\n");
+		str.append("subject_is_definite ");
+		str.append(Arrays.toString(fs.tenseProb));
+		str.append("\n");
+		str.append("object_is_pronoun ");
+		str.append(Arrays.toString(fs.tenseProb));
+		str.append("\n");
+		str.append("object_pronoun_is_possessive ");
+		str.append(Arrays.toString(fs.tenseProb));
+		str.append("\n");
+		str.append("object_is_definite ");
+		str.append(Arrays.toString(fs.tenseProb));
+		str.append("\n\n\n\n\n");
+		str.append("#tense: past / present / future\n");
+		str.append("#the others: yes / no");
+
+		try {
+			writer.write(str.toString());
+			writer.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}		
+	}
+	
+
+	
+	
 }

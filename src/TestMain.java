@@ -17,9 +17,10 @@ public class TestMain {
        
         SentenceBuilder sentenceBuilder = new SentenceBuilder();
         for (int i=0;i<10;i++){
-        	sentenceBuilder.createRandomSentence();
+        	sentenceBuilder.createFortuneCookie();
         }
-        LinkIntepreter.writeToFile(sentenceBuilder.nouns_nouns, "schmarf.txt");
+        LinkIntepreter.writeMatrixToFile(sentenceBuilder.nouns_nouns, "schmarf.txt");
+        LinkIntepreter.writeFeaturesToFile(sentenceBuilder.featureSet, "hurrrrdurrrr.txt");
     }
 
 	

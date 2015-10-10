@@ -85,4 +85,13 @@ public class FeatureSet {
 		System.out.println(Arrays.toString(object_is_pluralProb));
 		System.out.println(Arrays.toString(has_adverbProb));
 	}
+	public double[] trainFeature(double [] toTrain){
+		double increment = 0.05;
+		double sum=toTrain[0]+toTrain[1] + increment;
+		toTrain[0] = (toTrain[0]+increment)/sum;
+		toTrain[1] = toTrain[1]/sum;
+	
+	return toTrain;
+		
+	}
 }

@@ -30,14 +30,32 @@ public class SentenceBuilder {
     public FeatureSet featureSet;
     
 	public SentenceBuilder(){
-		  nouns_nouns = LinkIntepreter.readMatrixFile("nouns_nouns.txt");
-	      nouns_verbs = LinkIntepreter.readMatrixFile("nouns_verbs.txt");
-	      nouns_adjectives = LinkIntepreter.readMatrixFile("nouns_adjectives.txt");
-	      verbs_adverbs = LinkIntepreter.readMatrixFile("verbs_adverbs.txt");
+		  nouns_nouns = LinkIntepreter.readMatrixFile("/test_files/nouns_nouns.txt");
+	      nouns_adjectives = LinkIntepreter.readMatrixFile("/test_files/nouns_adjectives.txt");
+	      verbs_adverbs = LinkIntepreter.readMatrixFile("/test_files/verbs_adverbs.txt");
 	      featureSet = LinkIntepreter.readFeatureFile("fortune_cookies_features.txt");
+	      nouns_verbs = LinkIntepreter.readMatrixFile("/test_files/nouns_verbs.txt");
 	}
-	
-    public void createRandomSentence(){
+	/*
+	 * This creates a sentence using random distributions of "what word comes next"
+	 * Also using sentence features. Some features depend on other features.
+	 * 
+	 * -has_object: determines if the sentence contains an object
+	 * 	-object_is_pronoun: is the object a pronoun?
+	 * 		-object_pronoun_is_possessive
+	 * 	-object_is_plural: if not pronoun
+	 * 	-object_is_definite: "the" or "a" if not plural, if not pronoun
+	 * 	-object_has_adjective: if not pronoun
+	 * 
+	 * -subject_is_pronoun
+	 * 		-subject_pronoun_is_possessive
+	 * -subject_has_adjective: if not pronoun
+	 * -subject_is_definite: "the" or "a" if not pronoun
+	 * 
+	 * -tense: past, present, future
+	 * -has_adverb
+	 */
+    public void createFortuneCookie(){
     	featureSet.recalcFeatures(); //Run this to recalc all features
     	String subj = nouns_nouns.randomWord();
     	String verb = nouns_verbs.nextWord(subj);
@@ -97,8 +115,6 @@ public class SentenceBuilder {
         		else{
         			p.setObject(pronoun);
         		}
-        		
-        		
         	}
         	else{
 		        NPPhraseSpec object = nlgFactory.createNounPhrase(obj);

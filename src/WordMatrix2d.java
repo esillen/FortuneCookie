@@ -69,7 +69,7 @@ public class WordMatrix2d {
 		}
 		matrix[ypos][xpos] += 1.0/(double)matrix[0].length;
 		perturbate(ypos);
-		normalize();
+		normalize(); //TODO: just the row!
 		
 	}
 	
