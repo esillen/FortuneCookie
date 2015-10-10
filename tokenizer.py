@@ -4,7 +4,7 @@ import en
 final_list = []
 list_part = []
 test = []
-with open("korpus1.txt") as f:
+with open("testKorpus.txt") as f:
 	for line in f:
 		text = nltk.word_tokenize(line)
 		text2 = nltk.pos_tag(text)
