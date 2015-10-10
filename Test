@@ -113,3 +113,13 @@ WDT	wh-determiner	which
 WP	wh-pronoun	who, what
 WP$	possessive wh-pronoun	whose
 WRB	wh-abverb	where, when
+
+
+
+//Train ngram tag
+brown_lore_sents = nltk.corpus.brown.tagged_sents(categories=['lore'])
+unigram_tagger = nltk.UnigramTagger(brown_lore_sents,cutoff=2,backoff=nltk.DefaultTagger('NN'))
+bigram_tagger = nltk.BigramTagger(brown_lore_sents,cutoff=2,backoff=nltk.DefaultTagger('NN'))
+trigram_tagger = nltk.TrigramTagger(brown_lore_sents,cutoff=2,backoff=nltk.DefaultTagger('NN'))
+
+change "text2 = nltk.pos_tag(text)" to "text2 = unigram_tagger(text)"
