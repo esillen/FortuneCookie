@@ -143,11 +143,11 @@ with open(korpusFileName) as f:
                 elif(word[1] == cp[13] or word[1] == cp[14] or word[1] == cp[15] or word[1] == cp[16] or word[1] == cp[17]):        # Verbs
                     list_part.append(tuple([en.verb.infinitive(str(word[0]).lower()),cp[12]]))
                     if(word[1] == cp[13] or word[1] == cp[15]):
-                        numOfPast += 1
+                        numOfPast = numOfPast + 1
                     elif(word[1] == cp[14] or word[1] == cp[16] or word[1] == cp[17]):
-                        numOfPresent +=1
+                        numOfPresent = numOfPresent + 1
                     else:
-                        numOfFuture +=1
+                        numOfFuture = numOfFuture + 1
             if len(list_part)!=0:
                 final_list.append(list_part)
                 list_part = []
@@ -237,8 +237,6 @@ adverb = getUniqueItems(adverb)
 PosPronouns = getUniqueItems(PosPronouns)
 PersPronouns = getUniqueItems(PersPronouns)
 
-print(PosPronouns)
-print(PersPronouns)
 
 
 
@@ -250,8 +248,8 @@ NP = np.zeros((len(PersPronouns),len(nouns)))
 numOfObjecs = 0
 for sentence in final_list:
     if(check_if_more_than_one_nouns(sentence)):
-        numOfObjecs+=1
-print(numOfObjecs/len(final_list))
+        numOfObjecs=numOfObjecs + 1
+
 
 for nounNum in range(len(nouns)):
     for sentenceNum in range(len(final_list)):
@@ -262,47 +260,53 @@ for nounNum in range(len(nouns)):
                 for word in verbsInSentence:
                     pos = findPosOfWordInArray(word,verbs)
                     NV[pos][nounNum] = NV[pos][nounNum]+1
+                verbsInSentence = []
             nounsInSentence = checkForOtherWordtypes("NN",final_list[sentenceNum])
             if(len(nounsInSentence)!=0):
                 for word in nounsInSentence:
                     pos = findPosOfWordInArray(word,nouns)
                     NN[pos][nounNum] = NN[pos][nounNum]+1
+                nounsInSentence =[]
             AdjInSentence = checkForOtherWordtypes("JJ",final_list[sentenceNum])
             if(len(AdjInSentence)!=0):
                 for word in AdjInSentence:
                     pos = findPosOfWordInArray(word,adjective)
                     NAdj[pos][nounNum] = NAdj[pos][nounNum]+1
+                AdjInSentence = []
             PersProInSentence = checkForOtherWordtypes("PRP",final_list[sentenceNum])
             if(len(PersProInSentence)!=0):
                 for word in PersProInSentence:
                     pos = findPosOfWordInArray(word,PersPronouns)
                     NP[pos][nounNum] = NP[pos][nounNum] + 1
+                PersProInSentence = []
             PersProInSentence = checkForOtherWordtypes("PRP$",final_list[sentenceNum])
             if(len(PersProInSentence)!=0):
                 for word in PersProInSentence:
                     word = pos_to_pers(word)
                     pos = findPosOfWordInArray(word,PersPronouns)
                     NP[pos][nounNum] = NP[pos][nounNum] + 1
+                PersProInSentence = []
 
 VAdv = np.zeros((len(adverb),len(verbs)))
 for verbNum in range(len(verbs)):
     for sentenceNum in range(len(final_list)):
-        posOfWord = checkIfInSentence(nouns[nounNum],final_list[sentenceNum])
+        posOfWord = checkIfInSentence(verbs[verbNum],final_list[sentenceNum])
         if(posOfWord != -1):
             adVerbInSentence = checkForOtherWordtypes("RB",final_list[sentenceNum])
             if(len(adVerbInSentence)!=0):
                 for word in adVerbInSentence:
                     pos = findPosOfWordInArray(word,adverb)
                     VAdv[pos][verbNum] = VAdv[pos][verbNum]+1
+                adVerbInSentence = []
 
 
-'''
+
 NV = normalizeMatrix(NV)
 NN = normalizeMatrix(NN)
 NAdj = normalizeMatrix(NAdj)
 NP = normalizeMatrix(NP)
 VAdv = normalizeMatrix(VAdv)
-'''
+
 
 writeInFile(nouns,verbs,NV,"nouns_verbs.txt")
 writeInFile(nouns,nouns,NN,"nouns_nouns.txt")
@@ -310,3 +314,21 @@ writeInFile(nouns,adjective,NAdj,"nouns_adjectives.txt")
 writeInFile(nouns,PersPronouns,NP,"nouns_pronouns.txt")
 writeInFile(verbs,adverb,VAdv,"verbs_adverbs.txt")
 
+
+
+
+
+sum = numOfFuture+numOfPast+numOfPresent
+file = open("features.txt", "w")
+file.write("Tense ")
+file.write(str(numOfPast/float(sum)))
+file.write(" ")
+file.write(str(numOfPresent/float(sum)))
+file.write(" ")
+file.write(str(numOfFuture/float(sum)))
+file.write('\n')
+file.write("has object ")
+file.write(str(numOfObjecs/float(len(final_list))))
+file.write(" ")
+file.write(str(1-numOfObjecs/float(len(final_list))))
+file.close()
