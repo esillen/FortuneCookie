@@ -36,3 +36,41 @@ file.close()
 
 file = open('newfile.txt', 'r')
 print file.read()
+
+
+//filter bad sentences
+import nltk
+import nltk.corpus
+import nltk.tag
+
+BadSen = []
+index = 0
+with open("korpus1.txt") as f:
+	for line in f:
+				try:
+					index = index+1
+					text = nltk.word_tokenize(line)
+					text2 = nltk.pos_tag(text)
+				except ValueError:
+					BadSen.append(index)
+					# print "Oops!  That was no valid number.  Try again..."
+					# print line
+					# print index
+
+# print BadSen
+test = []
+index = 0
+sign = 0
+with open("korpus1.txt") as f:
+		for line in f:
+				index = index+1
+				sign=0
+				for i in range(len(BadSen)):
+					if index==BadSen[i]:
+						  sign=1
+						  # print sign,index
+				if sign==0:
+					# print sign,index
+					text = nltk.word_tokenize(line)
+					text2 = nltk.pos_tag(text)
+					print(text2)
