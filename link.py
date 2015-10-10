@@ -296,12 +296,13 @@ for verbNum in range(len(verbs)):
                     VAdv[pos][verbNum] = VAdv[pos][verbNum]+1
 
 
-
+'''
 NV = normalizeMatrix(NV)
 NN = normalizeMatrix(NN)
 NAdj = normalizeMatrix(NAdj)
 NP = normalizeMatrix(NP)
 VAdv = normalizeMatrix(VAdv)
+'''
 
 writeInFile(nouns,verbs,NV,"nouns_verbs.txt")
 writeInFile(nouns,nouns,NN,"nouns_nouns.txt")
