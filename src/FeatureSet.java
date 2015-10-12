@@ -103,4 +103,26 @@ public class FeatureSet {
 	return toTrain;
 	}
 	
+	public void addFeatureSet(FeatureSet other){
+		tenseProb = addDivideArrays(tenseProb,other.tenseProb);
+		has_objectProb = addDivideArrays(has_objectProb,other.has_objectProb);
+		subject_has_adjectiveProb = addDivideArrays(subject_has_adjectiveProb,other.subject_has_adjectiveProb);
+		object_has_adjectiveProb = addDivideArrays(object_has_adjectiveProb,other.object_has_adjectiveProb);
+		object_is_pluralProb = addDivideArrays(object_is_pluralProb,other.object_is_pluralProb);
+		has_adverbProb = addDivideArrays(has_adverbProb,other.has_adverbProb);
+		subject_is_pronounProb = addDivideArrays(subject_is_pronounProb,other.subject_is_pronounProb);
+		subject_pronoun_is_possessiveProb = addDivideArrays(subject_pronoun_is_possessiveProb,other.subject_pronoun_is_possessiveProb);
+		object_is_pronounProb = addDivideArrays(object_is_pronounProb,other.object_is_pronounProb);
+		object_pronoun_is_possessiveProb = addDivideArrays(object_pronoun_is_possessiveProb,other.object_pronoun_is_possessiveProb);
+		object_is_definiteProb = addDivideArrays(object_is_definiteProb,other.object_is_definiteProb);
+		subject_is_definiteProb = addDivideArrays(subject_is_definiteProb,other.subject_is_definiteProb);
+	}
+	
+	private double[] addDivideArrays(double[] a1,double[] a2){
+		for(int i=0;i<a1.length;i++){
+			a1[i] = (a1[i]+a2[i])/2.0;
+		}
+		return a1;
+	}
+	
 }
