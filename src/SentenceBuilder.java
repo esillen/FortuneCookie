@@ -33,6 +33,7 @@ public class SentenceBuilder {
     public FeatureSet featureSet;
     
 	public SentenceBuilder(){
+		
 		//INPUTS
 		String path = "/training/Erik/";
 
@@ -120,7 +121,7 @@ public class SentenceBuilder {
         		if(featureSet.object_pronoun_is_possessive){
         			pronoun.setFeature(Feature.POSSESSIVE, true);
         			//TODO: replace randomWord with word from distribution
-        			PhraseElement obj_posessive_phrase = nlgFactory.createNounPhrase(pronoun,nouns_nouns.randomWord());
+        			PhraseElement obj_posessive_phrase = nlgFactory.createNounPhrase(pronoun,obj);
             		p.setObject(obj_posessive_phrase); 
         		}
         		else{
