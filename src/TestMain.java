@@ -13,14 +13,23 @@ public class TestMain {
 
 	public static void main(String [] args){
 		
+<<<<<<< HEAD
         train();
         //addDivide(); //OBSERVE THAT THIS DOES NOT UPDATE THE FEATURESETS
+=======
+        //train();
+        addDivide(); //OBSERVE THAT THIS DOES NOT UPDATE THE FEATURESETS
+>>>>>>> 5d91b01d68125cbde52ef8c357b2eddbe3e0894a
     }
 	
 public static void train(){
 		
 		SentenceBuilder sentenceBuilder = new SentenceBuilder();
+<<<<<<< HEAD
         for (int i=0;i<50;i++){
+=======
+        for (int i=0;i<10;i++){
+>>>>>>> 5d91b01d68125cbde52ef8c357b2eddbe3e0894a
         	System.out.println(i);
         	sentenceBuilder.createFortuneCookie();
         }
@@ -39,7 +48,11 @@ public static void train(){
 	public static void addDivide(){
 		
         String inpath1 = "/training/TrainingRun1/";
+<<<<<<< HEAD
         String inpath2 = "/training/Erik";
+=======
+        String inpath2 = "/Yanbei/";
+>>>>>>> 5d91b01d68125cbde52ef8c357b2eddbe3e0894a
         String outpath = "/training/TrainingRun1/";
         
         WordMatrix2d nouns_nouns = LinkIntepreter.readMatrixFile(inpath1+"nouns_nouns.txt");
