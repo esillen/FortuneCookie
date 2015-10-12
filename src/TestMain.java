@@ -12,14 +12,21 @@ public class TestMain {
 
 
 	public static void main(String [] args){
-		TestMain m = new TestMain();
 		
         SentenceBuilder sentenceBuilder = new SentenceBuilder();
-        for (int i=0;i<10;i++){
+        for (int i=0;i<0;i++){
         	sentenceBuilder.createFortuneCookie();
         }
-        LinkIntepreter.writeMatrixToFile(sentenceBuilder.nouns_nouns, "schmarf.txt");
-        LinkIntepreter.writeFeaturesToFile(sentenceBuilder.featureSet, "hurrrrdurrrr.txt");
+        String path = "/training/Erik/";
+        //OUTPUTS (inputs are in SentenceBuilder)
+        LinkIntepreter.writeMatrixToFile(sentenceBuilder.nouns_nouns, path+"nouns_nouns.txt");
+        LinkIntepreter.writeMatrixToFile(sentenceBuilder.nouns_verbs, path+"nouns_verbs.txt");
+        LinkIntepreter.writeMatrixToFile(sentenceBuilder.nouns_adjectives, path+"nouns_adjectives.txt");
+        LinkIntepreter.writeMatrixToFile(sentenceBuilder.nouns_pronouns, path+"nouns_pronouns.txt");
+        LinkIntepreter.writeMatrixToFile(sentenceBuilder.verbs_adverbs, path+"verbs_adverbs.txt");
+        LinkIntepreter.writeFeaturesToFile(sentenceBuilder.featureSet, path+"features.txt");
+        SentenceBuilder.user_input.close();
+        System.out.println("done");
     }
 
 	

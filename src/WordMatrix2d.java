@@ -63,7 +63,7 @@ public class WordMatrix2d {
 			}
 		}
 		if (xpos==-1 || ypos == -1){
-			System.err.print("EPIC FAIL :(");
+			System.err.println("EPIC FAIL :(" + w1+" "+w2 + " " +xpos + " "  + ypos);
 			return;
 		}
 		if (promote_or_demote){
@@ -78,7 +78,7 @@ public class WordMatrix2d {
 	public void perturbAll(){
 		for (int row=0;row<matrix.length;row++){
 			for(int i=0;i<matrix[row].length;i++){
-				matrix[row][i]+=randgen.nextGaussian()*0.1/matrix[row].length;
+				matrix[row][i]+=Math.abs(randgen.nextGaussian()*0.01/matrix[row].length);
 				if (matrix[row][i] < 0){
 					matrix[row][i] = 0;
 				}

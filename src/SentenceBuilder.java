@@ -14,7 +14,7 @@ import simplenlg.phrasespec.SPhraseSpec;
 import simplenlg.realiser.english.Realiser;
 
 //TODO:
-//Differentiate between plural, indirect or direct objects
+//Differentiate between indirect or direct objects
 
 public class SentenceBuilder {
 
@@ -22,6 +22,8 @@ public class SentenceBuilder {
     static NLGFactory nlgFactory = new NLGFactory(lexicon);
     static Realiser realiser = new Realiser(lexicon);
     static Random randgen = new Random();
+    
+    public static Scanner user_input = new Scanner(System.in); //Remember to close this input!!
 	
     public WordMatrix2d nouns_nouns;
     public WordMatrix2d nouns_verbs;
@@ -31,12 +33,22 @@ public class SentenceBuilder {
     public FeatureSet featureSet;
     
 	public SentenceBuilder(){
-		  nouns_nouns = LinkIntepreter.readMatrixFile("nouns_nouns.txt");
-	      nouns_adjectives = LinkIntepreter.readMatrixFile("nouns_adjectives.txt");
-	      verbs_adverbs = LinkIntepreter.readMatrixFile("verbs_adverbs.txt");
-	      featureSet = LinkIntepreter.readFeatureFile("fortune_cookies_features.txt");
-	      nouns_verbs = LinkIntepreter.readMatrixFile("nouns_verbs.txt");
-	      nouns_pronouns = LinkIntepreter.readMatrixFile("nouns_pronouns.txt");
+		//INPUTS
+		String path = "/training/Erik/";
+		/*
+		  nouns_nouns = LinkIntepreter.readMatrixFile("training/nouns_nouns.txt");
+	      nouns_adjectives = LinkIntepreter.readMatrixFile("training/nouns_adjectives.txt");
+	      verbs_adverbs = LinkIntepreter.readMatrixFile("training/verbs_adverbs.txt");
+	      featureSet = LinkIntepreter.readFeatureFile("training/features.txt");
+	      nouns_verbs = LinkIntepreter.readMatrixFile("training/nouns_verbs.txt");
+	      nouns_pronouns = LinkIntepreter.readMatrixFile("training/nouns_pronouns.txt");
+	      */
+		nouns_nouns = LinkIntepreter.readMatrixFile(path+"nouns_nouns.txt");
+	      nouns_adjectives = LinkIntepreter.readMatrixFile(path+"nouns_adjectives.txt");
+	      verbs_adverbs = LinkIntepreter.readMatrixFile(path+"verbs_adverbs.txt");
+	      featureSet = LinkIntepreter.readFeatureFile(path+"features.txt");
+	      nouns_verbs = LinkIntepreter.readMatrixFile(path+"nouns_verbs.txt");
+	      nouns_pronouns = LinkIntepreter.readMatrixFile(path+"nouns_pronouns.txt");
 	}
 	/*
 	 * This creates a sentence using random distributions of "what word comes next"
@@ -110,13 +122,12 @@ public class SentenceBuilder {
         //OBJECT
         if (featureSet.has_object){
         	if(featureSet.object_is_pronoun){
-        		//TODO: replace you with something taken from distribution
         		NLGElement pronoun = nlgFactory.createWord(object_pronoun,LexicalCategory.PRONOUN);
         		if(featureSet.object_pronoun_is_possessive){
         			pronoun.setFeature(Feature.POSSESSIVE, true);
         			//TODO: replace randomWord with word from distribution
         			PhraseElement obj_posessive_phrase = nlgFactory.createNounPhrase(pronoun,nouns_nouns.randomWord());
-            		p.setObject(obj_posessive_phrase); //Does this even work???
+            		p.setObject(obj_posessive_phrase); 
         		}
         		else{
         			p.setObject(pronoun);
@@ -151,44 +162,32 @@ public class SentenceBuilder {
         System.out.println(output);
 		
         //Retrain model
-        //TODO: train for features as well as words
-        Scanner user_input = new Scanner(System.in);
+        
         System.out.println("Is this a good sentence? (y/n)");
         String answer = user_input.next();
-        if (answer.equals("y")){
-        	//LOTS OF UNNESSECARY CODE, I KNOW. BUT IT IS EASIER TO ADD/REMOVE THINGS THIS WAY
-        	
+        if (answer.equals("y")){        	
 ////////////////////////////////////////////////SUBJECT//////////////////////////////////////////////
         	//pronoun
         	if(featureSet.subject_is_pronoun){
         		featureSet.trainFeature(featureSet.subject_is_pronounProb,0);
         	}
-        	else{ 
-        		featureSet.trainFeature(featureSet.subject_is_pronounProb,1);
-        	}
+        	
         	//possessive
         	if(featureSet.subject_is_pronoun && featureSet.subject_pronoun_is_possessive){
         		featureSet.trainFeature(featureSet.subject_pronoun_is_possessiveProb, 0);
         	}
-        	else{
-        		featureSet.trainFeature(featureSet.subject_pronoun_is_possessiveProb, 1);
-        	}
+        	
         	//adjective
         	if(!featureSet.subject_is_pronoun && featureSet.subject_has_adjective){ 
 	        	nouns_adjectives.trainWordCouple(subj,subjective_adjective,true);
 	        	featureSet.trainFeature(featureSet.subject_has_adjectiveProb,0);
         	}
-        	else{ 
-        		nouns_adjectives.trainWordCouple(subj,subjective_adjective,false);
-        		featureSet.trainFeature(featureSet.subject_has_adjectiveProb,1);
-        	}
+        	
         	//definite
         	if(!featureSet.subject_is_pronoun && featureSet.subject_is_definite){
         		featureSet.trainFeature(featureSet.subject_is_definiteProb, 0);
         	}
-        	else{
-        		featureSet.trainFeature(featureSet.subject_is_definiteProb, 1);
-        	}
+        	
 
 ////////////////////////////////////////////////////OBJECT////////////////////////////////////////////////
         	//has_object
@@ -196,63 +195,106 @@ public class SentenceBuilder {
         		nouns_nouns.trainWordCouple(subj,obj,true);
         		featureSet.trainFeature(featureSet.has_objectProb,0);
         	}
-        	else{
-        		nouns_nouns.trainWordCouple(subj,obj,false);
-        		featureSet.trainFeature(featureSet.has_objectProb,1);
-        	}
+        	
         	//object_is_pronoun
         	if(featureSet.has_object && featureSet.object_is_pronoun){
         		featureSet.trainFeature(featureSet.object_is_pronounProb,0);
         	}
-        	else{
-        		featureSet.trainFeature(featureSet.object_is_pronounProb,1);
-        	}
+        	
         	//object_pronoun_is_possessive
         	if(featureSet.has_object && featureSet.object_is_pronoun && featureSet.object_pronoun_is_possessive){
         		featureSet.trainFeature(featureSet.object_pronoun_is_possessiveProb,0);
         	}
-        	else{
-        		featureSet.trainFeature(featureSet.object_pronoun_is_possessiveProb,1);
-        	}
+        	
         	//object_has_adjective
         	if(featureSet.has_object && !featureSet.object_is_pronoun && featureSet.object_has_adjective){
-        		nouns_nouns.trainWordCouple(obj,object_adjective,true);
+        		nouns_adjectives.trainWordCouple(obj,object_adjective,true);
         		featureSet.trainFeature(featureSet.object_has_adjectiveProb,0);
         	}
-        	else{
-        		nouns_nouns.trainWordCouple(obj,object_adjective,false);
-        		featureSet.trainFeature(featureSet.object_has_adjectiveProb,1);
-        	}
+        	
         	//object_is_plural
         	if(featureSet.has_object && !featureSet.object_is_pronoun && featureSet.object_is_plural){
         		featureSet.trainFeature(featureSet.object_is_pluralProb,0);
         	}
-        	else{
-        		featureSet.trainFeature(featureSet.object_is_pluralProb,1);
-        	}
+        	
         	//object_is_definite
         	if(featureSet.has_object && !featureSet.object_is_pronoun && !featureSet.object_is_plural && featureSet.object_is_definite){
         		featureSet.trainFeature(featureSet.object_is_definiteProb,0);
         	}
-        	else{
-        		featureSet.trainFeature(featureSet.object_is_definiteProb,1);
-        	}
+        	
 
 ////////////////////////////////////////////////ADVERB//////////////////////////////////////////////
         	if(featureSet.has_adverb) {
         		verbs_adverbs.trainWordCouple(verb,adverb,true);
         		featureSet.trainFeature(featureSet.has_adverbProb,0);
         	}
-        	else {
-        		verbs_adverbs.trainWordCouple(verb,adverb,false);
-        		featureSet.trainFeature(featureSet.has_adverbProb,1);
-        	}
+        	
         	
         	
 ////////////////////////////////////////////////TENSE//////////////////////////////////////////////
         	if(featureSet.tense==Tense.PAST) featureSet.trainFeature(featureSet.tenseProb,0);
         	else if(featureSet.tense==Tense.PRESENT) featureSet.trainFeature(featureSet.tenseProb,1);
         	else if(featureSet.tense==Tense.FUTURE) featureSet.trainFeature(featureSet.tenseProb,2);
+        }
+        if (answer.equals("n")){        	
+		////////////////////////////////////////////////SUBJECT//////////////////////////////////////////////
+		//pronoun
+		if(featureSet.subject_is_pronoun){
+			featureSet.trainFeature(featureSet.subject_is_pronounProb,1);
+		}
+		//possessive
+		if(featureSet.subject_is_pronoun && featureSet.subject_pronoun_is_possessive){
+			featureSet.trainFeature(featureSet.subject_pronoun_is_possessiveProb, 1);
+		}
+		
+		//adjective
+		if(!featureSet.subject_is_pronoun && featureSet.subject_has_adjective){ 
+		nouns_adjectives.trainWordCouple(subj,subjective_adjective,false);
+			featureSet.trainFeature(featureSet.subject_has_adjectiveProb,1);
+		}
+		
+		//definite
+		if(!featureSet.subject_is_pronoun && featureSet.subject_is_definite){
+			featureSet.trainFeature(featureSet.subject_is_definiteProb, 1);
+		}
+		
+		////////////////////////////////////////////////////OBJECT////////////////////////////////////////////////
+		//has_object
+		if(featureSet.has_object){ 
+			nouns_nouns.trainWordCouple(subj,obj,false);
+			featureSet.trainFeature(featureSet.has_objectProb,1);
+		}
+		//object_is_pronoun
+		if(featureSet.has_object && featureSet.object_is_pronoun){
+			featureSet.trainFeature(featureSet.object_is_pronounProb,1);
+		}
+		//object_pronoun_is_possessive
+		if(featureSet.has_object && featureSet.object_is_pronoun && featureSet.object_pronoun_is_possessive){
+			featureSet.trainFeature(featureSet.object_pronoun_is_possessiveProb,1);
+		}
+		//object_has_adjective
+		if(featureSet.has_object && !featureSet.object_is_pronoun && featureSet.object_has_adjective){
+			nouns_adjectives.trainWordCouple(obj,object_adjective,false);
+			featureSet.trainFeature(featureSet.object_has_adjectiveProb,1);
+		}
+		
+		//object_is_plural
+		if(featureSet.has_object && !featureSet.object_is_pronoun && featureSet.object_is_plural){
+			featureSet.trainFeature(featureSet.object_is_pluralProb,1);
+		}
+		
+		//object_is_definite
+		if(featureSet.has_object && !featureSet.object_is_pronoun && !featureSet.object_is_plural && featureSet.object_is_definite){
+			featureSet.trainFeature(featureSet.object_is_definiteProb,1);
+		}
+		
+		
+		////////////////////////////////////////////////ADVERB//////////////////////////////////////////////
+		if(featureSet.has_adverb) {
+			verbs_adverbs.trainWordCouple(verb,adverb,false);
+			featureSet.trainFeature(featureSet.has_adverbProb,1);
+		}
+
         }
 	}
 }
