@@ -36,7 +36,6 @@ public class LinkIntepreter {
 		}
 		in.close();
 		WordMatrix2d wm = new WordMatrix2d(parts1,parts2,matrix);
-		wm.perturbAll();
 		return wm;
 	}
 	
