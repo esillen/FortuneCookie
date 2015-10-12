@@ -1,10 +1,10 @@
-tense 0.2 0.2 0.7
-has_object 0.9 0.1
+tense 0.20596019998039408 0.20596019998039408 0.6862072345848446
+has_object 0.901970395059308 0.09802960494069209
 has_adverb 0.0 1.0
 object_has_adjective 0.5 0.5
 object_has_plural 0.2 0.8
-subject_has_adjective 0.5 0.5
-subject_is_pronoun 0.5 0.5
+subject_has_adjective 0.5000490148024703 0.4999509851975297
+subject_is_pronoun 0.4901480247034604 0.5098519752965396
 subject_pronoun_is_possessive 0.8 0.2
 subject_is_definite 0.5 0.5
 object_is_pronoun 0.2 0.8
