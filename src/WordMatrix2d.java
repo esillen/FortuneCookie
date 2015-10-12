@@ -1,7 +1,6 @@
 import java.util.Arrays;
 import java.util.Random;
 
-
 public class WordMatrix2d {
 
 	public String [] words1;
@@ -119,4 +118,20 @@ public class WordMatrix2d {
 		}
 	}
 	
+	public void add(WordMatrix2d otherWM2D){
+		double [][] other = otherWM2D.matrix;
+		for (int i=0;i<matrix.length;i++){
+			for(int j=0;j<matrix[0].length;j++){
+				matrix[i][j] += other[i][j];
+			}
+		}
+	}
+	
+	public void divide(double divisor){
+		for (int i=0;i<matrix.length;i++){
+			for(int j=0;j<matrix[0].length;j++){
+				matrix[i][j] =  matrix[i][j]/divisor;
+			}
+		}
+	}
 }

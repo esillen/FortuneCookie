@@ -35,20 +35,13 @@ public class SentenceBuilder {
 	public SentenceBuilder(){
 		//INPUTS
 		String path = "/training/Erik/";
-		/*
-		  nouns_nouns = LinkIntepreter.readMatrixFile("training/nouns_nouns.txt");
-	      nouns_adjectives = LinkIntepreter.readMatrixFile("training/nouns_adjectives.txt");
-	      verbs_adverbs = LinkIntepreter.readMatrixFile("training/verbs_adverbs.txt");
-	      featureSet = LinkIntepreter.readFeatureFile("training/features.txt");
-	      nouns_verbs = LinkIntepreter.readMatrixFile("training/nouns_verbs.txt");
-	      nouns_pronouns = LinkIntepreter.readMatrixFile("training/nouns_pronouns.txt");
-	      */
-		nouns_nouns = LinkIntepreter.readMatrixFile(path+"nouns_nouns.txt");
-	      nouns_adjectives = LinkIntepreter.readMatrixFile(path+"nouns_adjectives.txt");
-	      verbs_adverbs = LinkIntepreter.readMatrixFile(path+"verbs_adverbs.txt");
-	      featureSet = LinkIntepreter.readFeatureFile(path+"features.txt");
-	      nouns_verbs = LinkIntepreter.readMatrixFile(path+"nouns_verbs.txt");
-	      nouns_pronouns = LinkIntepreter.readMatrixFile(path+"nouns_pronouns.txt");
+
+	   	nouns_nouns = LinkIntepreter.readMatrixFile(path+"nouns_nouns.txt");
+	    nouns_adjectives = LinkIntepreter.readMatrixFile(path+"nouns_adjectives.txt");
+	    verbs_adverbs = LinkIntepreter.readMatrixFile(path+"verbs_adverbs.txt");
+	    featureSet = LinkIntepreter.readFeatureFile(path+"features.txt");
+	    nouns_verbs = LinkIntepreter.readMatrixFile(path+"nouns_verbs.txt");
+	    nouns_pronouns = LinkIntepreter.readMatrixFile(path+"nouns_pronouns.txt");
 	}
 	/*
 	 * This creates a sentence using random distributions of "what word comes next"
@@ -75,6 +68,7 @@ public class SentenceBuilder {
     public void createFortuneCookie(){
     	featureSet.recalcFeatures(); //Run this to recalc all features
     	String subj = nouns_nouns.randomWord();
+    	String subject_proverb = nouns_pronouns.nextWord(subj);
     	String verb = nouns_verbs.nextWord(subj);
     	String obj = nouns_nouns.nextWord(subj);
     	String adverb = verbs_adverbs.nextWord(verb);
@@ -88,11 +82,11 @@ public class SentenceBuilder {
         
         if(featureSet.subject_is_pronoun){
     		//TODO: replace you with something taken from distribution
-    		NLGElement pronoun = nlgFactory.createWord("you",LexicalCategory.PRONOUN);
+    		NLGElement pronoun = nlgFactory.createWord(subject_proverb,LexicalCategory.PRONOUN);
     		if(featureSet.subject_pronoun_is_possessive){
     			pronoun.setFeature(Feature.POSSESSIVE, true);
     			//TODO: replace randomWord with word from distribution
-    			PhraseElement subj_possessive_phrase = nlgFactory.createNounPhrase(pronoun,nouns_nouns.randomWord());
+    			PhraseElement subj_possessive_phrase = nlgFactory.createNounPhrase(pronoun,subj);
         		p.setSubject(subj_possessive_phrase); //Does this even work???
     		}
     		else{
