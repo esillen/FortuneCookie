@@ -48,8 +48,7 @@ public class WordMatrix2d {
 		return "arrayError";
 	}
 	
-	//This code also perturb the corresponding row
-	public void trainWordCouple(String w1,String w2){
+	public void trainWordCouple(String w1,String w2,boolean promote_or_demote){
 		int xpos = -1,ypos = -1;
 		for(int i=0;i<words1.length;i++){
 			if(words1[i].equals(w1)){
@@ -67,7 +66,12 @@ public class WordMatrix2d {
 			System.err.print("EPIC FAIL :(");
 			return;
 		}
-		matrix[ypos][xpos] += 1.0/(double)matrix[0].length;
+		if (promote_or_demote){
+			matrix[ypos][xpos] += 5.0/(double)matrix[0].length;
+		}
+		else{
+			matrix[ypos][xpos] -= 5.0/(double)matrix[0].length;
+		}
 		perturbRow(ypos);		
 	}
 	
