@@ -2,6 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c0a6d37e-9644-4a32-bf52-46dc8acbb06d" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/features.txt" afterPath="$PROJECT_DIR$/features.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/korpus_final" afterPath="$PROJECT_DIR$/korpus_final" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nouns_adjectives.txt" afterPath="$PROJECT_DIR$/nouns_adjectives.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nouns_nouns.txt" afterPath="$PROJECT_DIR$/nouns_nouns.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nouns_pronouns.txt" afterPath="$PROJECT_DIR$/nouns_pronouns.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nouns_verbs.txt" afterPath="$PROJECT_DIR$/nouns_verbs.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="FortuneCookie.iws" />
@@ -27,7 +33,7 @@
         <entry file="file://$PROJECT_DIR$/link.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.63106793">
-              <caret line="149" column="53" selection-start-line="149" selection-start-column="53" selection-end-line="149" selection-end-column="53" />
+              <caret line="137" column="115" selection-start-line="137" selection-start-column="115" selection-end-line="137" selection-end-column="115" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -39,7 +45,17 @@
         <entry file="file://$PROJECT_DIR$/nouns_verbs.txt">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="-0.41666666">
-              <caret line="1" column="363" selection-start-line="1" selection-start-column="362" selection-end-line="1" selection-end-column="363" />
+              <caret line="1" column="363" selection-start-line="1" selection-start-column="363" selection-end-line="1" selection-end-column="363" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="korpus_final" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/korpus_final">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="1247" column="81" selection-start-line="1247" selection-start-column="81" selection-end-line="1247" selection-end-column="81" />
               <folding />
             </state>
           </provider>
@@ -101,8 +117,8 @@
         <option value="$PROJECT_DIR$/linker.py" />
         <option value="$PROJECT_DIR$/test.txt" />
         <option value="$PROJECT_DIR$/verbs_adverbs.txt" />
-        <option value="$PROJECT_DIR$/korpus_final" />
         <option value="$PROJECT_DIR$/link.py" />
+        <option value="$PROJECT_DIR$/korpus_final" />
       </list>
     </option>
   </component>
@@ -401,7 +417,7 @@
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3245283" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3027523" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3027523" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -637,14 +653,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/korpus_final">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.93119264">
-          <caret line="1285" column="81" selection-start-line="1285" selection-start-column="81" selection-end-line="1285" selection-end-column="81" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/nouns_adjectives.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -656,7 +664,15 @@
     <entry file="file://$PROJECT_DIR$/nouns_verbs.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.41666666">
-          <caret line="1" column="363" selection-start-line="1" selection-start-column="362" selection-end-line="1" selection-end-column="363" />
+          <caret line="1" column="363" selection-start-line="1" selection-start-column="363" selection-end-line="1" selection-end-column="363" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/korpus_final">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="1247" column="81" selection-start-line="1247" selection-start-column="81" selection-end-line="1247" selection-end-column="81" />
           <folding />
         </state>
       </provider>
@@ -664,7 +680,7 @@
     <entry file="file://$PROJECT_DIR$/link.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.63106793">
-          <caret line="149" column="53" selection-start-line="149" selection-start-column="53" selection-end-line="149" selection-end-column="53" />
+          <caret line="137" column="115" selection-start-line="137" selection-start-column="115" selection-end-line="137" selection-end-column="115" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>
