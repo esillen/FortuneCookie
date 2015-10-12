@@ -14,7 +14,7 @@ public class TestMain {
 	public static void main(String [] args){
 		
         SentenceBuilder sentenceBuilder = new SentenceBuilder();
-        for (int i=0;i<0;i++){
+        for (int i=0;i<20;i++){
         	sentenceBuilder.createFortuneCookie();
         }
         String path = "/training/Erik/";
