@@ -68,19 +68,39 @@ public class WordMatrix2d {
 			return;
 		}
 		matrix[ypos][xpos] += 1.0/(double)matrix[0].length;
-		perturbate(ypos);
-		normalize(); //TODO: just the row!
-		
+		perturbRow(ypos);		
 	}
 	
-	private void perturbate(int row) {
+	public void perturbAll(){
+		for (int row=0;row<matrix.length;row++){
+			for(int i=0;i<matrix[row].length;i++){
+				matrix[row][i]+=randgen.nextGaussian()*0.1/matrix[row].length;
+				if (matrix[row][i] < 0){
+					matrix[row][i] = 0;
+				}
+			}
+		}
+		normalize();
+	}
+	
+	public void perturbRow(int row) {
 		for(int i=0;i<matrix[row].length;i++){
 			matrix[row][i]+=randgen.nextGaussian()*0.1/matrix[row].length;
 			if (matrix[row][i] < 0){
 				matrix[row][i] = 0;
 			}
 		}
-		
+		normalizeRow(row);
+	}
+	
+	public void normalizeRow(int row){
+		double rowsum = 0;
+		for(int j=0;j<matrix[0].length;j++){
+			rowsum+=matrix[row][j];
+		}
+		for(int j=0;j<matrix[0].length;j++){
+			matrix[row][j] = matrix[row][j]/rowsum;
+		}
 	}
 
 	public void normalize(){

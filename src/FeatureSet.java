@@ -14,6 +14,7 @@ public class FeatureSet {
 	public boolean subject_is_pronoun,subject_pronoun_is_possessive, object_is_pronoun, object_pronoun_is_possessive;
 	public boolean subject_is_definite,object_is_definite;
 	public Tense tense;
+	private double featureIncrement = 0.01;
 	
 	
 	
@@ -85,13 +86,20 @@ public class FeatureSet {
 		System.out.println(Arrays.toString(object_is_pluralProb));
 		System.out.println(Arrays.toString(has_adverbProb));
 	}
-	public double[] trainFeature(double [] toTrain){
-		double increment = 0.05;
-		double sum=toTrain[0]+toTrain[1] + increment;
-		toTrain[0] = (toTrain[0]+increment)/sum;
-		toTrain[1] = toTrain[1]/sum;
-	
-	return toTrain;
+	public double[] trainFeature(double [] toTrain, int feature_to_increase){;
+		double sum = 0;
+		toTrain[feature_to_increase] += featureIncrement;
 		
+		for (int i=0;i<toTrain.length;i++){
+			sum+=toTrain[i];
+		}
+		
+		for (int i=0;i<toTrain.length;i++){
+			toTrain[i]=toTrain[i]/sum;
+		}
+		
+	return toTrain;
 	}
+	
+	
 }
