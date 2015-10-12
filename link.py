@@ -2,7 +2,7 @@ import nltk
 import numpy as np
 import en
 
-korpusFileName = "resources/korpus1.txt"
+korpusFileName = "korpus_final"
 
 def getUniqueItems(iterable):
     seen = set()
@@ -15,7 +15,7 @@ def getUniqueItems(iterable):
 
 def checkIfInSentence(word,sentence):
     for i in range(len(sentence)):
-        if(word in sentence[i][0]):
+        if(word == sentence[i][0]):
             return i
     return -1
 
@@ -77,6 +77,8 @@ def pos_to_pers(pron):
         return "she"
     elif(pron == "mine"):
         return "i"
+    elif(pron == "our"):
+        return "us"
 
 ##################################################################################
 
@@ -136,18 +138,20 @@ with open(korpusFileName) as f:
                 elif(word[1]==cp[8]):                                                                                               # Possessive pronouns
                     numOfPosessive += 1
                     list_part.append(tuple([str(word[0]).lower(),cp[8]]))
+                    list_part.append(tuple([pos_to_pers(str(word[0]).lower()),cp[8]]))
                 elif(word[1] == cp[9] or word[1] == cp[10] or word[1] == cp[11]):                                                   # Adverbs
                     list_part.append(tuple([str(word[0]).lower(),cp[9]]))
                 elif(word[1] == cp[12]):
                     list_part.append(tuple([str(word[0]).lower(),cp[12]]))
                 elif(word[1] == cp[13] or word[1] == cp[14] or word[1] == cp[15] or word[1] == cp[16] or word[1] == cp[17]):        # Verbs
-                    list_part.append(tuple([en.verb.infinitive(str(word[0]).lower()),cp[12]]))
-                    if(word[1] == cp[13] or word[1] == cp[15]):
-                        numOfPast = numOfPast + 1
-                    elif(word[1] == cp[14] or word[1] == cp[16] or word[1] == cp[17]):
-                        numOfPresent = numOfPresent + 1
-                    else:
-                        numOfFuture = numOfFuture + 1
+                    if(word[0]!="'s"):
+                        list_part.append(tuple([en.verb.infinitive(str(word[0]).lower()),cp[12]]))
+                        if(word[1] == cp[13] or word[1] == cp[15]):
+                            numOfPast = numOfPast + 1
+                        elif(word[1] == cp[14] or word[1] == cp[16] or word[1] == cp[17]):
+                            numOfPresent = numOfPresent + 1
+                        else:
+                            numOfFuture = numOfFuture + 1
             if len(list_part)!=0:
                 final_list.append(list_part)
                 list_part = []
@@ -236,6 +240,8 @@ adjective = getUniqueItems(adjective)
 adverb = getUniqueItems(adverb)
 PosPronouns = getUniqueItems(PosPronouns)
 PersPronouns = getUniqueItems(PersPronouns)
+print(PersPronouns)
+print(nouns)
 
 
 
@@ -244,6 +250,7 @@ NN = np.zeros((len(nouns),len(nouns)))
 NV = np.zeros((len(verbs),len(nouns)))
 NAdj = np.zeros((len(adjective),len(nouns)))
 NP = np.zeros((len(PersPronouns),len(nouns)))
+print(NP.shape)
 
 numOfObjecs = 0
 for sentence in final_list:
@@ -259,32 +266,37 @@ for nounNum in range(len(nouns)):
             if(len(verbsInSentence)!=0):
                 for word in verbsInSentence:
                     pos = findPosOfWordInArray(word,verbs)
-                    NV[pos][nounNum] = NV[pos][nounNum]+1
+                    if(pos!=None):
+                        NV[pos][nounNum] = NV[pos][nounNum]+1
                 verbsInSentence = []
             nounsInSentence = checkForOtherWordtypes("NN",final_list[sentenceNum])
             if(len(nounsInSentence)!=0):
                 for word in nounsInSentence:
                     pos = findPosOfWordInArray(word,nouns)
-                    NN[pos][nounNum] = NN[pos][nounNum]+1
+                    if(pos!=None):
+                        NN[pos][nounNum] = NN[pos][nounNum]+1
                 nounsInSentence =[]
             AdjInSentence = checkForOtherWordtypes("JJ",final_list[sentenceNum])
             if(len(AdjInSentence)!=0):
                 for word in AdjInSentence:
                     pos = findPosOfWordInArray(word,adjective)
-                    NAdj[pos][nounNum] = NAdj[pos][nounNum]+1
+                    if(pos!=None):
+                        NAdj[pos][nounNum] = NAdj[pos][nounNum]+1
                 AdjInSentence = []
             PersProInSentence = checkForOtherWordtypes("PRP",final_list[sentenceNum])
             if(len(PersProInSentence)!=0):
                 for word in PersProInSentence:
                     pos = findPosOfWordInArray(word,PersPronouns)
-                    NP[pos][nounNum] = NP[pos][nounNum] + 1
+                    if(pos!=None):
+                        NP[pos][nounNum] = NP[pos][nounNum] + 1
                 PersProInSentence = []
             PersProInSentence = checkForOtherWordtypes("PRP$",final_list[sentenceNum])
             if(len(PersProInSentence)!=0):
                 for word in PersProInSentence:
                     word = pos_to_pers(word)
                     pos = findPosOfWordInArray(word,PersPronouns)
-                    NP[pos][nounNum] = NP[pos][nounNum] + 1
+                    if(pos!=None):
+                        NP[pos][nounNum] = NP[pos][nounNum] + 1
                 PersProInSentence = []
 
 VAdv = np.zeros((len(adverb),len(verbs)))
@@ -296,7 +308,8 @@ for verbNum in range(len(verbs)):
             if(len(adVerbInSentence)!=0):
                 for word in adVerbInSentence:
                     pos = findPosOfWordInArray(word,adverb)
-                    VAdv[pos][verbNum] = VAdv[pos][verbNum]+1
+                    if(pos!=None):
+                        VAdv[pos][verbNum] = VAdv[pos][verbNum]+1
                 adVerbInSentence = []
 
 
