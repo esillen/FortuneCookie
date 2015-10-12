@@ -2,14 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c0a6d37e-9644-4a32-bf52-46dc8acbb06d" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/korpus_final" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/features.txt" afterPath="$PROJECT_DIR$/features.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/link.py" afterPath="$PROJECT_DIR$/link.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nouns_adjectives.txt" afterPath="$PROJECT_DIR$/nouns_adjectives.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nouns_nouns.txt" afterPath="$PROJECT_DIR$/nouns_nouns.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nouns_pronouns.txt" afterPath="$PROJECT_DIR$/nouns_pronouns.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nouns_verbs.txt" afterPath="$PROJECT_DIR$/nouns_verbs.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/verbs_adverbs.txt" afterPath="$PROJECT_DIR$/verbs_adverbs.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="FortuneCookie.iws" />
@@ -31,10 +23,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="link.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="link.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/link.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-10.833333">
+            <state vertical-scroll-proportion="0.63106793">
               <caret line="149" column="53" selection-start-line="149" selection-start-column="53" selection-end-line="149" selection-end-column="53" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
@@ -43,10 +35,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="nouns_verbs.txt" pinned="false" current-in-tab="true">
+      <file leaf-file-name="nouns_verbs.txt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/nouns_verbs.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.024271844">
+            <state vertical-scroll-proportion="-0.41666666">
               <caret line="1" column="363" selection-start-line="1" selection-start-column="362" selection-end-line="1" selection-end-column="363" />
               <folding />
             </state>
@@ -661,21 +653,21 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/nouns_verbs.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.41666666">
+          <caret line="1" column="363" selection-start-line="1" selection-start-column="362" selection-end-line="1" selection-end-column="363" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/link.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-10.833333">
+        <state vertical-scroll-proportion="0.63106793">
           <caret line="149" column="53" selection-start-line="149" selection-start-column="53" selection-end-line="149" selection-end-column="53" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/nouns_verbs.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.024271844">
-          <caret line="1" column="363" selection-start-line="1" selection-start-column="362" selection-end-line="1" selection-end-column="363" />
-          <folding />
         </state>
       </provider>
     </entry>
