@@ -35,7 +35,9 @@ public class LinkIntepreter {
 			}
 		}
 		in.close();
-		return new WordMatrix2d(parts1,parts2,matrix);
+		WordMatrix2d wm = new WordMatrix2d(parts1,parts2,matrix);
+		wm.perturbAll();
+		return wm;
 	}
 	
 	public static FeatureSet readFeatureFile(String filename){
@@ -178,40 +180,40 @@ public class LinkIntepreter {
 		}
 		StringBuilder str = new StringBuilder();
 		str.append("tense ");
-		str.append(Arrays.toString(fs.tenseProb));
+		str.append(array2string(fs.tenseProb));
 		str.append("\n");
 		str.append("has_object ");
-		str.append(Arrays.toString(fs.has_objectProb));
+		str.append(array2string(fs.has_objectProb));
 		str.append("\n");
 		str.append("has_adverb ");
-		str.append(Arrays.toString(fs.tenseProb));
+		str.append(array2string(fs.has_adverbProb));
 		str.append("\n");
 		str.append("object_has_adjective ");
-		str.append(Arrays.toString(fs.tenseProb));
+		str.append(array2string(fs.object_has_adjectiveProb));
 		str.append("\n");
 		str.append("object_has_plural ");
-		str.append(Arrays.toString(fs.tenseProb));
+		str.append(array2string(fs.object_is_pluralProb));
 		str.append("\n");
 		str.append("subject_has_adjective ");
-		str.append(Arrays.toString(fs.tenseProb));
+		str.append(array2string(fs.subject_has_adjectiveProb));
 		str.append("\n");
 		str.append("subject_is_pronoun ");
-		str.append(Arrays.toString(fs.tenseProb));
+		str.append(array2string(fs.subject_is_pronounProb));
 		str.append("\n");
 		str.append("subject_pronoun_is_possessive ");
-		str.append(Arrays.toString(fs.tenseProb));
+		str.append(array2string(fs.subject_pronoun_is_possessiveProb));
 		str.append("\n");
 		str.append("subject_is_definite ");
-		str.append(Arrays.toString(fs.tenseProb));
+		str.append(array2string(fs.subject_is_definiteProb));
 		str.append("\n");
 		str.append("object_is_pronoun ");
-		str.append(Arrays.toString(fs.tenseProb));
+		str.append(array2string(fs.object_is_pronounProb));
 		str.append("\n");
 		str.append("object_pronoun_is_possessive ");
-		str.append(Arrays.toString(fs.tenseProb));
+		str.append(array2string(fs.object_pronoun_is_possessiveProb));
 		str.append("\n");
 		str.append("object_is_definite ");
-		str.append(Arrays.toString(fs.tenseProb));
+		str.append(array2string(fs.object_is_definiteProb));
 		str.append("\n\n\n\n\n");
 		str.append("#tense: past / present / future\n");
 		str.append("#the others: yes / no");
@@ -225,6 +227,15 @@ public class LinkIntepreter {
 	}
 	
 
+	private static String array2string(double[] a){
+		StringBuilder str = new StringBuilder();
+		for (int i=0;i<a.length-1;i++){
+			str.append(a[0]);
+			str.append(" ");
+		}
+		str.append(a[a.length-1]);
+		return str.toString();
+	}
 	
 	
 }

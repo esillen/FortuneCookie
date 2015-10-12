@@ -1,6 +1,6 @@
 tense 0.2 0.1 0.7
 has_object 0.9 0.1
-has_adverb 0.8 0.2
+has_adverb 0.0 1.0
 object_has_adjective 0.5 0.5
 object_is_plural 0.2 0.8
 subject_has_adjective 0.5 0.5
