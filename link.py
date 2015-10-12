@@ -2,7 +2,7 @@ import nltk
 import numpy as np
 import en
 
-korpusFileName = "korpus_final"
+korpusFileName = "resources/korpus1.txt"
 
 def getUniqueItems(iterable):
     seen = set()
@@ -273,7 +273,7 @@ for nounNum in range(len(nouns)):
             if(len(nounsInSentence)!=0):
                 for word in nounsInSentence:
                     pos = findPosOfWordInArray(word,nouns)
-                    if(pos!=None):
+                    if(pos!=None and pos!=posOfWord):
                         NN[pos][nounNum] = NN[pos][nounNum]+1
                 nounsInSentence =[]
             AdjInSentence = checkForOtherWordtypes("JJ",final_list[sentenceNum])
