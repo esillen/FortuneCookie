@@ -13,8 +13,8 @@ public class TestMain {
 
 	public static void main(String [] args){
 
-        train();
-        //addDivide(); //OBSERVE THAT THIS DOES NOT UPDATE THE FEATURESETS
+        //train();
+        addDivide(); //OBSERVE THAT THIS DOES NOT UPDATE THE FEATURESETS
 
 
     }
@@ -41,11 +41,9 @@ public static void train(){
 	
 	public static void addDivide(){
 		
-        String inpath1 = "/training/TrainingRun1/";
-
-        String inpath2 = "/training/Erik";
-
-        String outpath = "/training/TrainingRun1/";
+        String inpath1 = "/training/TrainingRun2/";
+        String inpath2 = "/Vladimir/RUN2/";
+        String outpath = "/training/TrainingRun2/";
         
         WordMatrix2d nouns_nouns = LinkIntepreter.readMatrixFile(inpath1+"nouns_nouns.txt");
         WordMatrix2d nouns_adjectives = LinkIntepreter.readMatrixFile(inpath1+"nouns_adjectives.txt");
